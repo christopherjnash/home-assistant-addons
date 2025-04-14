@@ -1,4 +1,4 @@
-ARG BUILD_FROM=arm64v8/debian:bullseye
+ARG BUILD_FROM=ghcr.io/home-assistant/{arch}-base-debian:bullseye
 FROM $BUILD_FROM
 
 SHELL ["/bin/bash", "-c"]
@@ -6,7 +6,7 @@ SHELL ["/bin/bash", "-c"]
 ENV LANG C.UTF-8
 
 # Update and install dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     apache2 \
     php \
     php-curl \
@@ -15,7 +15,8 @@ RUN apt-get update && apt-get install -y \
     php-openssl \
     php-xml \
     git \
-    unzip
+    unzip && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install RSS-Bridge
 RUN rm -rf /var/www/html && \
