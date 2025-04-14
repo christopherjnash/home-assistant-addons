@@ -15,7 +15,7 @@ This add-on is built using the Home Assistant Debian base image and Docker. Inst
 
 ## Configuration
 
-No additional user configuration is required for basic usage.
+No additional user configuration is required for basic usage. All whitelists (enabled_bridges) are enabled by default. 
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
