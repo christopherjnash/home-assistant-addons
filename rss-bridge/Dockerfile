@@ -26,11 +26,7 @@ RUN rm -rf /var/www/html && \
     chown -R www-data:www-data /var/www/html
 
 # Copy run script
-COPY run /usr/local/bin/run
-RUN chmod +x /usr/local/bin/run
+COPY rootfs/ /
 
 # Expose port
 EXPOSE 80
-
-# Entrypoint
-CMD ["/usr/local/bin/run"]
