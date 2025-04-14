@@ -11,7 +11,7 @@ Once installed, access the Web UI via:
 
 ## Build and Install
 
-This add-on is built using Ubuntu.
+This add-on is built using Debian and Docker...
 
 ## Configuration
 
