@@ -11,7 +11,7 @@ Once installed, access the Web UI via:
 
 ## Build and Install
 
-This add-on is built using the official Home Assistant add-on structure. It uses the base image from `ghcr.io/hassio-addons/base:12.2.7` and installs all dependencies via apk.
+This add-on is built using Ubuntu.
 
 ## Configuration
 
