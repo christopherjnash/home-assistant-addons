@@ -1,9 +1,9 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/{arch}-base-debian:bullseye
+ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base-debian:bullseye
 FROM $BUILD_FROM
 
 ENV LANG C.UTF-8
 
-# Install dependencies
+# Install required packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apache2 \
     php \
@@ -28,5 +28,5 @@ RUN chmod +x /usr/local/bin/run
 # Expose port
 EXPOSE 80
 
-# Entrypoint for Home Assistant
+# Entrypoint
 CMD ["/usr/local/bin/run"]
