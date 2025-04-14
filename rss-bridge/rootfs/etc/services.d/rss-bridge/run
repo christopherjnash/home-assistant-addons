@@ -1,2 +1,4 @@
 #!/usr/bin/with-contenv bash
+set -e  # Exit immediately on error
+echo "Starting Apache2..."
 exec httpd -D FOREGROUND
