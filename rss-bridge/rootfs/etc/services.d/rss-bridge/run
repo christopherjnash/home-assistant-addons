@@ -1,3 +1,2 @@
 #!/usr/bin/with-contenv bash
-# Start Apache in the foreground to keep the container running
-exec apache2-foreground
+exec httpd -D FOREGROUND
