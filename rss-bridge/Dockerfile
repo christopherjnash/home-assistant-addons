@@ -3,6 +3,8 @@ FROM ${BUILD_FROM}
 
 ENV LANG C.UTF-8
 
+ENV RSSBRIDGE_CONFIG=/etc/rss-bridge/config.ini.php
+
 RUN cat /etc/os-release
 
 RUN apt-get update || (cat /var/log/apt/term.log && false)
@@ -23,8 +25,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install RSS-Bridge
 RUN rm -rf /var/www/html && \
     git clone --depth=1 https://github.com/RSS-Bridge/rss-bridge.git /var/www/html && \
-    mkdir -p /var/www/html/cache && \
-    chown -R www-data:www-data /var/www/html
+    mkdir -p /data/cache && \
+    chown -R www-data:www-data /data/cache && \
+    chmod -R 775 /data/cache
 
 # Copy run script
 COPY rootfs/ /
