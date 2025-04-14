@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install RSS-Bridge
 RUN rm -rf /var/www/html && \
     git clone --depth=1 https://github.com/RSS-Bridge/rss-bridge.git /var/www/html && \
+    mkdir -p /var/www/html/cache && \
     chown -R www-data:www-data /var/www/html && \
     chmod -R 775 /var/www/html/cache
 

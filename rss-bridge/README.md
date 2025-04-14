@@ -11,7 +11,7 @@ Once installed, access the Web UI via:
 
 ## Build and Install
 
-This add-on is built using the Home Assistant Debian base image and Docker.
+This add-on is built using the Home Assistant Debian base image and Docker. Install with the button, manage via the Web UI. 
 
 ## Configuration
 
