@@ -3,7 +3,7 @@ name: RSS-Bridge
 version: "1.0.0"
 slug: rss-bridge
 description: RSS-Bridge add-on for Home Assistant
-url: "https://github.com/christopherjnash/home-assistant-addons/rss-bridge"
+url: "https://github.com/christopherjnash/home-assistant-addons/tree/main/rss-bridge"
 arch:
   - armhf
   - armv7
