@@ -5,14 +5,16 @@ ENV LANG C.UTF-8
 
 RUN cat /etc/os-release
 
+RUN apt-get update || (cat /var/log/apt/term.log && false)
+
 # Install required packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apache2 \
     php \
+    php-cli \
+    php-common \
     php-curl \
-    php-json \
     php-mbstring \
-    php-openssl \
     php-xml \
     git \
     unzip && \
