@@ -17,5 +17,6 @@ RUN apk update && apk add --no-cache \
     php-xml
 
 # Install RSS-Bridge
-RUN git clone https://github.com/RSS-Bridge/rss-bridge.git /var/www/localhost/htdocs \
-    && chown -R root:root /var/www/localhost/htdocs
+RUN rm -rf /var/www/localhost/htdocs && \
+    git clone --depth=1 https://github.com/RSS-Bridge/rss-bridge.git /var/www/localhost/htdocs && \
+    chown -R root:root /var/www/localhost/htdocs
