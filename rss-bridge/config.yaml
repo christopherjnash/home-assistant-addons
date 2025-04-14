@@ -14,5 +14,5 @@ init: false
 options: {}
 schema: {}
 ports:
-  8085/tcp: 80
-webui: "http://[HOST]:8085"
+  80/tcp: 8085
+webui: "http://[HOST]:[PORT:8085]"
