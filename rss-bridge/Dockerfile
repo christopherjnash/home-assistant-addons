@@ -25,5 +25,6 @@ RUN rm -rf /var/www/html && \
 # Expose port 80
 EXPOSE 80
 
-# Start Apache2 in foreground
-CMD ["apachectl", "-D", "FOREGROUND"]
+COPY run /usr/local/bin/run
+RUN chmod +x /usr/local/bin/run
+CMD ["/usr/local/bin/run"]
