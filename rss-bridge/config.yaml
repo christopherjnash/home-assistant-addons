@@ -1,0 +1,20 @@
+# https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
+name: RSS-Bridge
+version: "1.0.0"
+slug: rss-bridge
+description: RSS-Bridge add-on for Home Assistant
+url: "https://github.com/christopherjnash/home-assistant-addons/rss-bridge"
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+init: true
+map:
+  - share:rw
+options: {}
+schema: {}
+ports:
+  8085/tcp: 80
+webui: "http://[HOST]:[PORT:80]"

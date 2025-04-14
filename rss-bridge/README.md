@@ -1,6 +1,19 @@
-# Home Assistant Add-on: Example add-on
+# RSS-Bridge Add-on for Home Assistant
 
-_Example add-on to use as a blueprint for new add-ons._
+This add-on runs [RSS-Bridge](https://github.com/RSS-Bridge/rss-bridge) as a self-hosted RSS feed generator within Home Assistant OS.
+
+## Usage
+
+Once installed, access the Web UI via:  
+`http://<YOUR_HOME_ASSISTANT_IP>:8085/`
+
+## Build and Install
+
+This add-on is built using the official Home Assistant add-on structure. It uses the base image from `ghcr.io/hassio-addons/base:12.2.7` and installs all dependencies via apk.
+
+## Configuration
+
+No additional user configuration is required for basic usage.
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
