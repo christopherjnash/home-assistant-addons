@@ -1,4 +1,4 @@
-ARG BUILD_FROM=arm64v8/ubuntu:20.04
+ARG BUILD_FROM=arm64v8/debian:bullseye
 FROM $BUILD_FROM
 
 SHELL ["/bin/bash", "-c"]
