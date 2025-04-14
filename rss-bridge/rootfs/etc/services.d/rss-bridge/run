@@ -1,4 +1,10 @@
 #!/usr/bin/with-contenv bash
 set -e
+
+echo "Fixing cache directory permissions..."
+mkdir -p /var/www/html/cache
+chown -R www-data:www-data /var/www/html/cache
+chmod -R 775 /var/www/html/cache
+
 echo "Starting Apache2..."
 exec apache2ctl -D FOREGROUND
