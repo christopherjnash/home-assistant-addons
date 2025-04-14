@@ -1,11 +1,9 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/{arch}-base-debian:bullseye
 FROM $BUILD_FROM
 
-SHELL ["/bin/bash", "-c"]
-
 ENV LANG C.UTF-8
 
-# Update and install dependencies
+# Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apache2 \
     php \
@@ -23,9 +21,12 @@ RUN rm -rf /var/www/html && \
     git clone --depth=1 https://github.com/RSS-Bridge/rss-bridge.git /var/www/html && \
     chown -R www-data:www-data /var/www/html
 
-# Expose port 80
-EXPOSE 80
-
+# Copy run script
 COPY run /usr/local/bin/run
 RUN chmod +x /usr/local/bin/run
+
+# Expose port
+EXPOSE 80
+
+# Entrypoint for Home Assistant
 CMD ["/usr/local/bin/run"]
