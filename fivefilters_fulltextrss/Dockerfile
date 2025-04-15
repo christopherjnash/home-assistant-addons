@@ -3,30 +3,47 @@ FROM ${BUILD_FROM}
 
 ENV LANG C.UTF-8
 
-# Optional: Display OS information for debugging.
+# (Optional) Display OS info for debugging
 RUN cat /etc/os-release
 
-# Update apt and install required packages: Apache, PHP, dependencies, and Git (with ca-certificates for HTTPS)
-RUN apt-get update && apt-get install -y \
+# Install base packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
     apache2 \
     php \
     libapache2-mod-php \
     php-xml \
-    git \
+    php-tidy \
     ca-certificates \
+    git \
     unzip \
  && rm -rf /var/lib/apt/lists/*
 
-# Enable Apache's rewrite module if needed
+# Enable Apache rewrite if needed
 RUN a2enmod rewrite
 
-# Clone the new repository containing Full-Text RSS and set proper ownership
-RUN rm -rf /var/www/html && \
-    git clone https://github.com/heussd/fivefilters-full-text-rss-docker.git /var/www/html && \
+# 1) Clone FiveFilters Full-Text RSS at the pinned commit:
+RUN git clone https://bitbucket.org/fivefilters/full-text-rss.git /tmp/full-text-rss && \
+    cd /tmp/full-text-rss && \
+    git reset --hard 384d52fd83361ffd6e7f28bd39b322970a015a28
+
+# 2) Clone FiveFilters site config from GitHub:
+RUN git clone https://github.com/fivefilters/ftr-site-config.git /tmp/ftr-site-config
+
+# 3) Move both into /var/www/html
+RUN rm -rf /var/www/html && mkdir -p /var/www/html && \
+    cp -R /tmp/full-text-rss/* /var/www/html/ && \
+    # Merge site-config files into the 'standard' config folder
+    mkdir -p /var/www/html/site_config/standard && \
+    cp -R /tmp/ftr-site-config/. /var/www/html/site_config/standard/ || true
+
+# 4) Create + fix permissions on the cache directory
+RUN mkdir -p /var/www/html/cache/rss && \
+    chmod -R 777 /var/www/html/cache && \
+    chmod -R 777 /var/www/html/site_config && \
     chown -R www-data:www-data /var/www/html
 
-# Expose port 80
+# Expose port 80 to match your config.yaml
 EXPOSE 80
 
-# Start Apache in the foreground when the container runs
+# Run Apache in the foreground for Home Assistant
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
