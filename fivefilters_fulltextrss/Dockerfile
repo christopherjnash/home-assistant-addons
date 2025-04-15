@@ -19,9 +19,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     unzip \
  && rm -rf /var/lib/apt/lists/*
 
-# Copy php configuration file
- COPY php.ini /etc/php/7.4/apache2/php.ini
-
 # Enable Apache rewrite if needed
 RUN a2enmod rewrite
 
@@ -46,8 +43,9 @@ RUN mkdir -p /var/www/html/cache/rss && \
     chmod -R 777 /var/www/html/site_config && \
     chown -R www-data:www-data /var/www/html
 
-# Copy custom configuration file
-COPY custom_config.php /var/www/html/
+# Fix deprecated implode() calls in SimplePie
+RUN sed -i "s/implode(array_keys(\\\$this->day), '|')/implode('|', array_keys(\\\$this->day))/" /var/www/html/libraries/simplepie/library/SimplePie/Parse/Date.php && \
+    sed -i "s/implode(array_keys(\\\$this->month), '|')/implode('|', array_keys(\\\$this->month))/" /var/www/html/libraries/simplepie/library/SimplePie/Parse/Date.php
 
 # Expose port 80 to match your config.yaml
 EXPOSE 80
