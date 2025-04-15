@@ -3,10 +3,10 @@ FROM ${BUILD_FROM}
 
 ENV LANG C.UTF-8
 
-# Show distribution information (optional)
+# Optional: Display OS information for debugging.
 RUN cat /etc/os-release
 
-# Update apt and install required packages: Apache, PHP, dependencies, and git, plus ca-certificates
+# Update apt and install required packages: Apache, PHP, dependencies, and Git (with ca-certificates for HTTPS)
 RUN apt-get update && apt-get install -y \
     apache2 \
     php \
@@ -20,9 +20,10 @@ RUN apt-get update && apt-get install -y \
 # Enable Apache's rewrite module if needed
 RUN a2enmod rewrite
 
-# Download FiveFilters Full-Text RSS into Apache's web directory and set proper ownership
-RUN git clone https://github.com/fivefilters/full-text-rss.git /var/www/html \
- && chown -R www-data:www-data /var/www/html
+# Clone the new repository containing Full-Text RSS and set proper ownership
+RUN rm -rf /var/www/html && \
+    git clone https://github.com/heussd/fivefilters-full-text-rss-docker.git /var/www/html && \
+    chown -R www-data:www-data /var/www/html
 
 # Expose port 80
 EXPOSE 80
