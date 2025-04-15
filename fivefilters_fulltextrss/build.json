@@ -16,7 +16,7 @@
     },
     "dockerfile": "Dockerfile",
     "image": {
-        "name": "homeassistant/rss_bridge",
+        "name": "homeassistant/fivefilters_fulltextrss",
         "tag_template": "{arch}-{version}-{ref}"
     },
     "platforms": [

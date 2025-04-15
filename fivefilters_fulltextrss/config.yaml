@@ -1,0 +1,18 @@
+# https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
+name: FiveFilters Full-Text RSS
+version: "1.0.0"
+slug: fivefilters_fulltextrss
+description: FiveFilters Full-Text RSS add-on for Home Assistant
+url: "https://github.com/christopherjnash/home-assistant-addons/tree/main/fivefilters_fulltextrss"
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+init: false
+options: {}
+schema: {}
+ports:
+  80/tcp: 8082
+webui: "http://[HOST]:[PORT:8082]"

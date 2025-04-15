@@ -5,7 +5,11 @@ slug: rss-bridge
 description: RSS-Bridge add-on for Home Assistant
 url: "https://github.com/christopherjnash/home-assistant-addons/tree/main/rss-bridge"
 arch:
+  - armhf
+  - armv7
   - aarch64
+  - amd64
+  - i386
 init: false
 options: {}
 schema: {}
