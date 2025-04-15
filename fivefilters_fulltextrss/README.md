@@ -1,6 +1,6 @@
 # FiveFilters Full-Text RSS Add-on for Home Assistant
 
-This add-on runs [heussd's fivefilters-full-text-rss-docker service](https://github.com/heussd/fivefilters-full-text-rss-docker) to extract and serve full article content from partial or link-only RSS feeds—all self-hosted within Home Assistant OS. 10:10am
+This add-on runs [heussd's fivefilters-full-text-rss-docker service](https://github.com/heussd/fivefilters-full-text-rss-docker) to extract and serve full article content from partial or link-only RSS feeds—all self-hosted within Home Assistant OS.
 
 ## 🔗 Usage
 
