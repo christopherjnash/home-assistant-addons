@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libapache2-mod-php \
     php-xml \
     php-tidy \
+    php-mbstring \
     ca-certificates \
     git \
     unzip \
