@@ -1,7 +1,5 @@
 # RSS-Bridge Add-on for Home Assistant
 
-![RSS-Bridge](https://raw.githubusercontent.com/christopherjnash/home-assistant-addons/main/rss-bridge/logo.png)
-
 This add-on runs [RSS-Bridge](https://github.com/RSS-Bridge/rss-bridge) as a self-hosted RSS feed generator within Home Assistant OS.
 
 ## Usage
