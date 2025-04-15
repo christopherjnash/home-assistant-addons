@@ -6,13 +6,14 @@ ENV LANG C.UTF-8
 # Show distribution information (optional)
 RUN cat /etc/os-release
 
-# Update apt and install required packages: Apache, PHP, dependencies, and git
+# Update apt and install required packages: Apache, PHP, dependencies, and git, plus ca-certificates
 RUN apt-get update && apt-get install -y \
     apache2 \
     php \
     libapache2-mod-php \
     php-xml \
     git \
+    ca-certificates \
     unzip \
  && rm -rf /var/lib/apt/lists/*
 
