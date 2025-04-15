@@ -19,6 +19,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     unzip \
  && rm -rf /var/lib/apt/lists/*
 
+# Copy php configuration file
+ COPY php.ini /etc/php/7.4/apache2/php.ini
+
 # Enable Apache rewrite if needed
 RUN a2enmod rewrite
 
@@ -42,6 +45,9 @@ RUN mkdir -p /var/www/html/cache/rss && \
     chmod -R 777 /var/www/html/cache && \
     chmod -R 777 /var/www/html/site_config && \
     chown -R www-data:www-data /var/www/html
+
+# Copy custom configuration file
+COPY custom_config.php /var/www/html/
 
 # Expose port 80 to match your config.yaml
 EXPOSE 80
