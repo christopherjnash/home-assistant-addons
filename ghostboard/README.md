@@ -27,7 +27,7 @@ docker run --rm homeassistant/ghostboard:$(arch)-1.0.0 <server-ip>
 
 # Update
 docker run --rm homeassistant/ghostboard:$(arch)-1.0.0 <server-ip> "Some new text"
-
+```
 ---
 
 ![Supports aarch64 Architecture][aarch64-shield]
