@@ -1,0 +1,29 @@
+{
+  "build_from": {
+    "aarch64": "ghcr.io/home-assistant/aarch64-base-debian:bullseye",
+    "amd64":   "ghcr.io/home-assistant/amd64-base-debian:bullseye",
+    "armv7":   "ghcr.io/home-assistant/armv7-base-debian:bullseye",
+    "armhf":   "ghcr.io/home-assistant/armhf-base-debian:bullseye",
+    "i386":    "ghcr.io/home-assistant/i386-base-debian:bullseye"
+  },
+  "build_args": {
+    "BUILD_ARCH":   "${BUILD_ARCH}",
+    "BUILD_VERSION":"${BUILD_VERSION}",
+    "BUILD_DATE":   "${BUILD_DATE}",
+    "BUILD_REF":    "${BUILD_REF}",
+    "BUILD_URL":    "${BUILD_URL}",
+    "HASSIO_TOKEN": "${HASSIO_TOKEN}"
+  },
+  "dockerfile": "Dockerfile",
+  "image": {
+    "name": "homeassistant/ghostboard",
+    "tag_template": "{arch}-{version}-{ref}"
+  },
+  "platforms": [
+    "aarch64",
+    "amd64",
+    "armv7",
+    "armhf",
+    "i386"
+  ]
+}

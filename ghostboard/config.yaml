@@ -1,0 +1,18 @@
+# config.yaml
+name: Ghostboard
+version: "1.0.0"
+slug: ghostboard
+description: Ghostboard real-time text sharing add-on for Home Assistant
+url: "https://github.com/christopherjnash/home-assistant-addons/tree/main/ghostboard"
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+init: false
+options: {}
+schema: {}
+ports:
+  80/tcp: 8765
+webui: "http://[HOST]:[PORT:8765]"
