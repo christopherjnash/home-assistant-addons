@@ -2,8 +2,8 @@
 name: Ghostboard
 version: "1.0.0"
 slug: ghostboard
-description: Ghostboard real-time text sharing add-on for Home Assistant
-url: "https://github.com/christopherjnash/home-assistant-addons/tree/main/ghostboard"
+description: Ghostboard real‑time text‑sharing add‑on for Home Assistant
+url: "https://github.com/jon6fingrs/ghostboard"
 arch:
   - armhf
   - armv7

@@ -4,7 +4,7 @@ FROM ${BUILD_FROM}
 
 ENV LANG C.UTF-8
 
-# Install base packages
+# Install base packages + make `python` → python3
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nginx \
     supervisor \
@@ -37,12 +37,15 @@ RUN rm -f /etc/nginx/conf.d/default.conf \
 RUN cp /app/ghostboard.conf /etc/nginx/conf.d/ \
  && cp /app/supervisord.conf /etc/supervisor/conf.d/
 
-# patch ghostboard.conf for HA
-RUN sed -i 's|error_log .*|error_log /dev/stderr warn;|' /etc/nginx/conf.d/ghostboard.conf \
- && sed -i 's|access_log .*|access_log /dev/stdout;|'    /etc/nginx/conf.d/ghostboard.conf \
- && sed -i '/types {/,/}/d'                                /etc/nginx/conf.d/ghostboard.conf \
- && sed -i 's|client_body_temp_path .*|client_body_temp_path /tmp/nginx-body;|' /etc/nginx/conf.d/ghostboard.conf \
- && mkdir -p /tmp/nginx-body && chown -R www-data:www-data /tmp/nginx-body
+# Patch Ghostboard nginx conf for Home Assistant
+RUN sed -i '/include \/etc\/nginx\/mime.types;/d' /etc/nginx/conf.d/ghostboard.conf \
+ && sed -i '/types {/,/}/d'                                 /etc/nginx/conf.d/ghostboard.conf \
+ && sed -i 's|client_body_temp_path .*|client_body_temp_path /tmp/nginx-body;|' \
+       /etc/nginx/conf.d/ghostboard.conf \
+ && sed -i '1i error_log /dev/stderr warn;\naccess_log /dev/stdout;' \
+       /etc/nginx/conf.d/ghostboard.conf \
+ && mkdir -p /tmp/nginx-body \
+ && chown -R www-data:www-data /tmp/nginx-body
 
 # Expose HTTP (80) only; nginx will proxy WebSocket (8765) and app (8080)
 EXPOSE 80
