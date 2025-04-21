@@ -20,8 +20,14 @@ RUN apt-get update && apt-get install -y git python3-pip \
 # Clean default nginx
 RUN rm -f /etc/nginx/conf.d/default.conf /etc/nginx/sites-enabled/default
 
-# Copy ghostboard nginx config and service scripts
+# Copy service scripts and other overlay files
 COPY rootfs/ /
+
+# Ensure run scripts are executable (important on Windows hosts)
+RUN chmod +x /etc/services.d/ghostboard/run && \
+    chmod +x /etc/services.d/nginx/run
+
+RUN ls -l /etc/services.d/ghostboard && ls -l /etc/services.d/nginx
 
 # Expose HTTP port
 EXPOSE 80
