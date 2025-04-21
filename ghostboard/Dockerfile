@@ -4,51 +4,49 @@ FROM ${BUILD_FROM}
 
 ENV LANG C.UTF-8
 
-# Install base packages + make `python` → python3
+# Install base packages + symlink python→python3
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nginx \
     supervisor \
     python3 \
     python3-pip \
     python-is-python3 \
-    git \
  && rm -rf /var/lib/apt/lists/*
 
-# Clone Ghostboard
+# Grab the Ghostboard server
 RUN git clone https://github.com/jon6fingrs/ghostboard.git /tmp/ghostboard
 
-# Copy server files into /app
+# Copy in the server files
 RUN mkdir -p /app \
  && cp -R /tmp/ghostboard/server/* /app/
 
 WORKDIR /app
 
-# Tell the client we're in Docker
+# Tell Ghostboard it’s in Docker
 RUN sed -i 's/const IN_DOCKER = false;/const IN_DOCKER = true;/' index.html
 
-# Install Python dependencies
+# Python deps
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Clean up default nginx configs
-RUN rm -f /etc/nginx/conf.d/default.conf \
-       /etc/nginx/sites-enabled/default
+# Drop default nginx configs
+RUN rm -f /etc/nginx/conf.d/default.conf /etc/nginx/sites-enabled/default
 
-# Install our custom configs
+# Install Ghostboard’s nginx & supervisord configs
 RUN cp /app/ghostboard.conf /etc/nginx/conf.d/ \
  && cp /app/supervisord.conf /etc/supervisor/conf.d/
 
-# Patch Ghostboard nginx conf for Home Assistant
-RUN sed -i '/include \/etc\/nginx\/mime.types;/d' /etc/nginx/conf.d/ghostboard.conf \
- && sed -i '/types {/,/}/d'                                 /etc/nginx/conf.d/ghostboard.conf \
- && sed -i 's|client_body_temp_path .*|client_body_temp_path /tmp/nginx-body;|' \
-       /etc/nginx/conf.d/ghostboard.conf \
- && sed -i '1i error_log /dev/stderr warn;\naccess_log /dev/stdout;' \
-       /etc/nginx/conf.d/ghostboard.conf \
+# ────────── Patch nginx for Home Assistant ──────────
+# 1) remove the sub_filter_types line (it defaults to text/html anyway)
+# 2) inject a writeable client_body_temp_path
+# 3) prepare that temp directory
+RUN sed -i 's#sub_filter_types text/html;##g' /etc/nginx/conf.d/ghostboard.conf \
+ && sed -i '/server {/a\    client_body_temp_path /tmp/nginx-body;' \
+      /etc/nginx/conf.d/ghostboard.conf \
  && mkdir -p /tmp/nginx-body \
  && chown -R www-data:www-data /tmp/nginx-body
 
-# Expose HTTP (80) only; nginx will proxy WebSocket (8765) and app (8080)
+# Expose HTTP port
 EXPOSE 80
 
-# Launch supervisord (it starts nginx + the Python server)
+# Launch both nginx & the Python server under supervisord
 CMD ["/usr/bin/supervisord", "-n"]
