@@ -27,6 +27,10 @@ COPY rootfs/ /
 RUN chmod +x /etc/services.d/ghostboard/run && \
     chmod +x /etc/services.d/nginx/run
 
+RUN mkdir -p /var/log/nginx && \
+    chown -R www-data:www-data /var/log/nginx && \
+    chmod -R 755 /var/log/nginx
+
 RUN ls -l /etc/services.d/ghostboard && ls -l /etc/services.d/nginx
 
 # Expose HTTP port
