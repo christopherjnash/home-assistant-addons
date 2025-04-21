@@ -1,13 +1,13 @@
 name: Ghostboard
 version: "1.0.0"
 slug: ghostboard
-description: Ghostboard real‑time text‑sharing add‑on for Home Assistant
+description: Ghostboard add-on for Home Assistant
 url: "https://github.com/jon6fingrs/ghostboard"
 arch:
-  - armhf
-  - armv7
   - aarch64
   - amd64
+  - armv7
+  - armhf
   - i386
 init: false
 options: {}
