@@ -3,7 +3,7 @@
 
 This add‑on packages [jon6fingrs’ Ghostboard](https://github.com/jon6fingrs/ghostboard) into a Home Assistant OS add‑on, giving you a lightweight, self‑hosted, real‑time text‑sharing “board” right on your network. 
 
-**5:15**
+**5:38 pom 4/21/25**
 
 ## 🔗 Usage
 
