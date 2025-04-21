@@ -7,6 +7,7 @@ ENV LANG C.UTF-8
 # Install base packages + symlink 'python' → python3
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
+    git \
     nginx \
     supervisor \
     python3 \
