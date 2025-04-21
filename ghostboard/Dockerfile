@@ -10,11 +10,14 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone Ghostboard server code and install Python deps
-RUN git clone --depth=1 https://github.com/jon6fingrs/ghostboard.git /tmp/ghostboard \
-    && cp -R /tmp/ghostboard/server/* /app/ \
-    && rm -rf /tmp/ghostboard \
-    && sed -i 's/const IN_DOCKER = false;/const IN_DOCKER = true;/' /app/index.html \
-    && pip3 install --no-cache-dir -r /app/requirements.txt
+RUN apt-get update && apt-get install -y git python3-pip \
+ && mkdir -p /app \
+ && git clone --depth=1 https://github.com/jon6fingrs/ghostboard.git /tmp/ghostboard \
+ && cp -R /tmp/ghostboard/server/* /app/ \
+ && cp /tmp/ghostboard/index.html /app/ \
+ && rm -rf /tmp/ghostboard \
+ && sed -i 's/const IN_DOCKER = false;/const IN_DOCKER = true;/' /app/index.html \
+ && pip3 install --no-cache-dir -r /app/requirements.txt
 
 # Clean default nginx
 RUN rm -f /etc/nginx/conf.d/default.conf /etc/nginx/sites-enabled/default
