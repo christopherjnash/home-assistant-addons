@@ -4,7 +4,7 @@ FROM ${BUILD_FROM}
 
 ENV LANG C.UTF-8
 
-# Install base packages + symlink 'python' → python3
+# 1) Install base + git + python symlink
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
     git \
@@ -15,39 +15,45 @@ RUN apt-get update \
     python-is-python3 \
  && rm -rf /var/lib/apt/lists/*
 
-# Clone Ghostboard server
+# 2) Fetch Ghostboard server
 RUN git clone https://github.com/jon6fingrs/ghostboard.git /tmp/ghostboard
 
-# Copy into /app
+# 3) Copy into /app
 RUN mkdir -p /app \
  && cp -R /tmp/ghostboard/server/* /app/
 
 WORKDIR /app
 
-# Tell Ghostboard it’s in Docker
+# 4) Enable Docker mode in the client
 RUN sed -i "s/const IN_DOCKER = false;/const IN_DOCKER = true;/" index.html
 
-# Install Python deps
+# 5) Python deps
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Remove default nginx site
+# 6) Clean out default nginx site
 RUN rm -f /etc/nginx/conf.d/default.conf /etc/nginx/sites-enabled/default
 
-# Install Ghostboard’s nginx & supervisord configs
+# 7) Install upstream configs
 RUN cp /app/ghostboard.conf /etc/nginx/conf.d/ \
  && cp /app/supervisord.conf /etc/supervisor/conf.d/
 
-# ───── Patches for Home Assistant ─────
-# 1) Remove the 'sub_filter_types text/html;' line (it duplicates the built‑in mime type)
-# 2) Redirect nginx’s client_body_temp_path globally to a writeable /tmp/nginx-body
-# 3) Create & chown that directory, so nginx won’t try to chown /var/lib/nginx/body
-RUN sed -i 's#sub_filter_types text/html;##g' /etc/nginx/conf.d/ghostboard.conf \
- && sed -i 's#client_body_temp_path .*#client_body_temp_path /tmp/nginx-body;#' /etc/nginx/nginx.conf \
+# 8) Patch the Ghostboard vhost so HA can run it:
+#    • strip the duplicate MIME/type block
+#    • remove the old client_body_temp_path
+#    • insert a writeable /tmp/nginx-body path
+#    • route logs to stdout/stderr
+RUN sed -i '/include \/etc\/nginx\/mime.types;/d' /etc/nginx/conf.d/ghostboard.conf \
+ && sed -i '/types {/,/}/d'                                /etc/nginx/conf.d/ghostboard.conf \
+ && sed -i '/client_body_temp_path/d'                      /etc/nginx/conf.d/ghostboard.conf \
+ && sed -i '/server {/a\    client_body_temp_path /tmp/nginx-body;' \
+       /etc/nginx/conf.d/ghostboard.conf \
+ && sed -i '1i error_log /dev/stderr warn;\naccess_log /dev/stdout;' \
+       /etc/nginx/conf.d/ghostboard.conf \
  && mkdir -p /tmp/nginx-body \
  && chown -R www-data:www-data /tmp/nginx-body
 
-# Expose HTTP
+# 9) Expose port 80 (nginx)  
 EXPOSE 80
 
-# Start supervisord (which launches nginx + the Python server)
+# 10) Launch supervisord → nginx + Python server  
 CMD ["/usr/bin/supervisord", "-n"]
