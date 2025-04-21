@@ -23,6 +23,10 @@ RUN rm -f /etc/nginx/conf.d/default.conf /etc/nginx/sites-enabled/default
 # Copy service scripts and other overlay files
 COPY rootfs/ /
 
+# Prepare nginx temp path for rootless container use
+RUN mkdir -p /tmp/nginx/client_body && \
+    chown -R www-data:www-data /tmp/nginx
+
 # Ensure run scripts are executable (important on Windows hosts)
 RUN chmod +x /etc/services.d/ghostboard/run && \
     chmod +x /etc/services.d/nginx/run
