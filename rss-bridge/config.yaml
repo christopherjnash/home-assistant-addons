@@ -11,8 +11,6 @@ arch:
   - amd64
   - i386
 init: false
-options: {}
-schema: {}
 ports:
   80/tcp: 8085
 webui: "http://[HOST]:[PORT:8085]"
