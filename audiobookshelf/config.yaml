@@ -16,8 +16,9 @@ map:
   - ssl:ro
   - config:rw
 ports:
-  443/tcp: 13378
+  443/tcp: 8083
 environment:
   METADATA_PATH: /data/abs-metadata
   CONFIG_PATH: /data/abs-config
-  PORT: "8081"
+  PORT: "8083"
+webui: "http://[HOST]:[PORT:8083]"

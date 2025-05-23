@@ -1,24 +1,17 @@
 # udiobookshelf for Home Assistant
 
-This add-on is based on [advplyr's audiobookshelf app](https://github.com/heussd/fivefilters-full-text-rss-docker), which is a self-hosted audiobook and podcast server.
+This add-on is based on [advplyr's audiobookshelf app](https://github.com/advplyr/audiobookshelf), which is a self-hosted audiobook and podcast server. This specific implementation was drawn from [matthewturk's repo](https://github.com/matthewturk/hass-audiobookshelf)
+
+5/23 at 10:42
 
 ## 🔗 Usage
 
 Once installed, access the Web UI via:  
-`http://<YOUR_HOME_ASSISTANT_IP>:8081/`
-
-You can convert any feed URL to full text with: 
-`http://<YOUR_HOME_ASSISTANT_IP>:8081/makefulltextfeed.php?url=<RSS_FEED_URL>`
-
-
-### 🧪 Example with RSS-Bridge:
-
-Combine with RSS-Bridge for sites without proper feeds:
-`http://<YOUR_HOME_ASSISTANT_IP>:8081/makefulltextfeed.php?url=http://<YOUR_RSS_BRIDGE>/rss-bridge/?action=display&bridge=HtmlSelector&url=https%3A%2F%2Fexample.com`
+`http://<YOUR_HOME_ASSISTANT_IP>:8083/`
 
 ## 🛠️ Configuration
 
-No additional user configuration is required for basic usage. To customize parsing rules, edit the `site_config` directory inside the container (advanced users only).
+No additional user configuration is required for basic usage. 
 
 
 _Example add-on to use as a blueprint for new add-ons._
