@@ -5,6 +5,9 @@
 ## In this repo:
 
 #### [RSS-Bridge](./rss-bridge)
+#### [FiveFilters](./fivefilters_fulltextrss)
+#### [Ghostboard - NOT YET FUNCTIONAL](./ghostboard)
+#### [Audiobookshelf - NOT YET FUNCTIONAL](./audiobookshelf)
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
