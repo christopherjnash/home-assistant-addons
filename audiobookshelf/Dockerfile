@@ -1,6 +1,14 @@
+ARG BUILD_FROM
+# amd64: alpine:${VERSION}
+# i386: i386/alpine:${VERSION}
+# aarch64: arm64v8/alpine:${VERSION}
+# armv7: arm32v7/alpine:${VERSION}
+# armhf: arm32v6/alpine:${VERSION}
+FROM ${BUILD_FROM}
+
 # ---------- Stage 1: Build Audiobookshelf app -------------
 # This stage builds the Audiobookshelf application from source.
-FROM node:20-alpine AS build
+FROM node:24-alpine AS build
 
 # Set the working directory for this build stage.
 WORKDIR /app
@@ -22,12 +30,6 @@ RUN echo "Installing npm dependencies..." && \
 
 # ---------- Stage 2: Minimal runtime for Home Assistant add-on ----------
 # This stage creates the final addon image.
-
-# ARG BUILD_FROM is an argument passed by the Home Assistant build system.
-# It specifies the base image for the add-on, appropriate for the target architecture
-# (e.g., ghcr.io/hassio-addons/base/amd64:16.0.0).
-ARG BUILD_FROM
-FROM $BUILD_FROM
 
 # Install runtime dependencies required by Audiobookshelf.
 # Based on your original Dockerfile, only ffmpeg is needed.
