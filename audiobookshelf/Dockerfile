@@ -10,7 +10,7 @@ RUN tar xvf v2.9.0.tar.gz && \
     mv audiobookshelf-2.9.0/* . && \
     rm -rf audiobookshelf-2.9.0 v2.9.0.tar.gz
 
-# Install dependencies (no build step needed for release tarball)
+# Install dependencies
 RUN npm ci
 
 # ---------- Stage 2: Minimal runtime for Home Assistant add-on ----------
@@ -22,15 +22,15 @@ RUN apk add --no-cache ffmpeg
 
 ENV NODE_ENV=production
 
-# Copy Home Assistant add-on configs and service scripts, if you have them
+# Copy Home Assistant add-on configs and service scripts
 COPY rootfs /
 
-# Copy the fully prepared Audiobookshelf app from the builder stage
+# Ensure all service scripts are executable (fixes Windows permission issues)
+RUN find /etc/services.d -type f -exec chmod +x {} \;
+
+# Copy the built Audiobookshelf app from the builder stage
 COPY --from=build /app /app
 
 WORKDIR /app
 
 EXPOSE 8083
-
-# Optional: Uncomment if your add-on needs to launch node directly
-# CMD ["node", "index.js"]

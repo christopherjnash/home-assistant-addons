@@ -5,5 +5,5 @@
 # ==============================================================================
 
 [ -d $METADATA_PATH ] || mkdir -p $METADATA_PATH
-[ -d $CONFIG_PATH ] || mkdir -p $METADATA_PATH
-exec node /index.js
+[ -d $CONFIG_PATH ] || mkdir -p $CONFIG_PATH
+exec node /app/index.js

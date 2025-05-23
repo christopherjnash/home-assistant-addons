@@ -1,8 +1,8 @@
-# udiobookshelf for Home Assistant
+# Audiobookshelf for Home Assistant
 
 This add-on is based on [advplyr's audiobookshelf app](https://github.com/advplyr/audiobookshelf), which is a self-hosted audiobook and podcast server. This specific implementation was drawn from [matthewturk's repo](https://github.com/matthewturk/hass-audiobookshelf)
 
-5/23 at 10:42
+3:16pm
 
 ## 🔗 Usage
 
@@ -12,9 +12,6 @@ Once installed, access the Web UI via:
 ## 🛠️ Configuration
 
 No additional user configuration is required for basic usage. 
-
-
-_Example add-on to use as a blueprint for new add-ons._
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
