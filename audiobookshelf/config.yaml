@@ -1,4 +1,3 @@
-# https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: Audiobookshelf
 version: "2.9.0-1"
 slug: audiobookshelf
@@ -13,12 +12,13 @@ arch:
 init: false
 map:
   - media:ro
-  - ssl:ro
-  - config:rw
+  - ssl:ro # Keep if you need SSL certs, otherwise remove
 ports:
-  443/tcp: 8083
+  8083/tcp: null # Expose 8083, let user map host port
+ports_description:
+  8083/tcp: Audiobookshelf Web Interface (Set Host port in Network section)
 environment:
   METADATA_PATH: /data/abs-metadata
   CONFIG_PATH: /data/abs-config
-  PORT: "8083"
-webui: "http://[HOST]:[PORT:8083]"
+  PORT: "8083" # Keep this if your app needs to know its internal port
+webui: "http://[HOST]:[PORT:8083]" # This tells HA to link to the mapped port
