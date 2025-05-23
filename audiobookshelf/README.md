@@ -2,7 +2,7 @@
 
 This add-on is based on [advplyr's audiobookshelf app](https://github.com/advplyr/audiobookshelf), which is a self-hosted audiobook and podcast server. This specific implementation was drawn from [matthewturk's repo](https://github.com/matthewturk/hass-audiobookshelf)
 
-3:16pm
+3:30pm
 
 ## 🔗 Usage
 
