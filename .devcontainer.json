@@ -9,7 +9,11 @@
   },
   "customizations": {
     "vscode": {
-      "extensions": ["timonwong.shellcheck", "esbenp.prettier-vscode"],
+      "extensions": [
+        "timonwong.shellcheck",
+        "esbenp.prettier-vscode",
+        "ms-vscode-remote.remote-containers"
+      ],
       "settings": {
         "terminal.integrated.profiles.linux": {
           "zsh": {
