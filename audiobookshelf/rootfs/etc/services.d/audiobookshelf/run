@@ -1,9 +1,32 @@
 #!/usr/bin/with-contenv bashio
-# ==============================================================================
-# Start the example service
-# s6-overlay docs: https://github.com/just-containers/s6-overlay
-# ==============================================================================
 
-[ -d $METADATA_PATH ] || mkdir -p $METADATA_PATH
-[ -d $CONFIG_PATH ] || mkdir -p $CONFIG_PATH
-exec node /app/index.js
+bashio::log.info "--- STARTING AUDIOBOOKSHELF ---"
+
+# fallback default port
+if [[ -z "${PORT}" ]]; then
+  PORT="8083"
+  bashio::log.warning "PORT was not set; defaulting to ${PORT}"
+fi
+
+# fallback default host
+if [[ -z "${HOST}" ]]; then
+  HOST="0.0.0.0"
+  bashio::log.warning "HOST was not set; defaulting to ${HOST}"
+fi
+
+# log key env vars
+bashio::log.info "CONFIG_PATH   = ${CONFIG_PATH}"
+bashio::log.info "METADATA_PATH = ${METADATA_PATH}"
+bashio::log.info "PORT          = ${PORT}"
+bashio::log.info "HOST          = ${HOST}"
+
+# sanity checks
+[[ -z "$CONFIG_PATH" ]]   && bashio::log.fatal "CONFIG_PATH is not set!"   && exit 1
+[[ -z "$METADATA_PATH" ]] && bashio::log.fatal "METADATA_PATH is not set!" && exit 1
+
+# ensure data dirs exist
+mkdir -p "$CONFIG_PATH" "$METADATA_PATH"
+
+# start server
+cd /app || { bashio::log.fatal "Cannot cd to /app"; exit 1; }
+exec node index.js

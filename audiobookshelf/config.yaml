@@ -1,24 +1,30 @@
 name: Audiobookshelf
 version: "2.9.0-1"
 slug: audiobookshelf
-description: Running an audiobookshelf server
-url: "https://github.com/matthewturk/hass-audiobookshelf/tree/main/audiobookshelf"
+description: Running an Audiobookshelf server
+url: "https://github.com/advplyr/audiobookshelf"
+
 arch:
   - armhf
   - armv7
   - aarch64
   - amd64
   - i386
+
 init: false
 map:
   - media:ro
-  - ssl:ro # Keep if you need SSL certs, otherwise remove
+  - ssl:ro
+
 ports:
-  8083/tcp: null # Expose 8083, let user map host port
+  8083/tcp: 8083
 ports_description:
-  8083/tcp: Audiobookshelf Web Interface (Set Host port in Network section)
+  8083/tcp: Audiobookshelf Web Interface
+
 environment:
   METADATA_PATH: /data/abs-metadata
   CONFIG_PATH: /data/abs-config
-  PORT: "8083" # Keep this if your app needs to know its internal port
-webui: "http://[HOST]:[PORT:8083]" # This tells HA to link to the mapped port
+  PORT: "8083"
+  HOST: "0.0.0.0"
+
+webui: "http://[HOST]:[PORT:8083]"
