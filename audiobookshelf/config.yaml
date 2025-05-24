@@ -1,7 +1,7 @@
 name: Audiobookshelf
-version: "2.9.0-1"
+version: "2.23.0"
 slug: audiobookshelf
-description: Running an Audiobookshelf server
+description: Self-hosted audiobook and podcast server
 url: "https://github.com/advplyr/audiobookshelf"
 
 arch:
