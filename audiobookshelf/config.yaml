@@ -3,6 +3,7 @@ version: "2.23.0"
 slug: audiobookshelf
 description: Self-hosted audiobook and podcast server
 url: "https://github.com/advplyr/audiobookshelf"
+image: "christopherjnash/audiobookshelf-ha-addon:2.23.0"
 
 arch:
   - armhf
