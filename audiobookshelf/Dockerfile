@@ -1,5 +1,5 @@
 # --- Build Stage ---
-FROM node:22-bookworm-slim AS build
+FROM node:20-bookworm-slim AS build
 WORKDIR /app
 
 # fetch source
@@ -13,7 +13,7 @@ RUN npm ci && \
     npm prune --production
 
 # --- Final Stage (Node+Debian, glibc-based) ---
-FROM node:22-bookworm-slim
+FROM node:20-bookworm-slim
 RUN apt-get update && apt-get install -y ffmpeg && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
