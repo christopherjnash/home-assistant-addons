@@ -2,6 +2,9 @@
 FROM node:20-bookworm-slim AS build
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y \
+    python3 build-essential git
+
 # fetch source
 RUN apt-get update && apt-get install -y curl && \
     curl -sSL https://github.com/advplyr/audiobookshelf/archive/refs/tags/v2.23.0.tar.gz \
