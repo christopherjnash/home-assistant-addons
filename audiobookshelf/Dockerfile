@@ -4,7 +4,7 @@ WORKDIR /app
 
 # fetch source
 RUN apk add --no-cache curl && \
-    curl -sSL https://github.com/advplyr/audiobookshelf/archive/refs/tags/v2.23.0.tar.gz \
+    curl -sSL https://github.com/advplyr/audiobookshelf/archive/refs/tags/v2.9.0.tar.gz \
       | tar xz --strip-components=1 -C /app
 
 # install & build both server + client
