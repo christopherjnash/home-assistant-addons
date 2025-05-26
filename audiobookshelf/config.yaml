@@ -1,5 +1,5 @@
 name: Audiobookshelf
-version: "2.23.0"
+version: "2.23.0-1"
 slug: audiobookshelf
 description: Self-hosted audiobook and podcast server
 url: "https://github.com/advplyr/audiobookshelf"
@@ -14,8 +14,9 @@ arch:
 
 init: false
 map:
-  - media:ro
+  - media:rw
   - ssl:ro
+  - share: rw
 
 ports:
   8083/tcp: 8083
