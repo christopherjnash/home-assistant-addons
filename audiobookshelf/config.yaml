@@ -16,7 +16,7 @@ init: false
 map:
   - media:rw
   - ssl:ro
-  - share: rw
+  - share:rw
 
 ports:
   8083/tcp: 8083
