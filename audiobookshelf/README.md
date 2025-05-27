@@ -1,6 +1,6 @@
 # Audiobookshelf for Home Assistant
 
-This add-on is based on [advplyr's audiobookshelf app](https://github.com/advplyr/audiobookshelf), which is a self-hosted audiobook and podcast server.
+This add-on is a Home Assistant version of [advplyr's audiobookshelf app](https://github.com/advplyr/audiobookshelf), which is a self-hosted audiobook and podcast server.
 
 ## 🔗 Usage
 

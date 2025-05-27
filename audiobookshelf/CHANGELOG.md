@@ -2,7 +2,7 @@
 
 ## 2.23.0
 
-- Updated to most recent as of May 24th, 2025
+- Updated to most recent version
 
 ## 2.9.0
 
