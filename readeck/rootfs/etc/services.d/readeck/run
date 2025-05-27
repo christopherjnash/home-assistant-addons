@@ -10,13 +10,13 @@ set -e
 # Set default Readeck environment variables.
 : "${READECK_SERVER_HOST:=0.0.0.0}"
 : "${READECK_SERVER_PORT:=8001}"
-: "${READECK_DATA_DIR:=/data}" # Explicitly set data directory to /data
+: "${READECK_DATA_DIRECTORY:=/data}" # Explicitly set data directory to /data
 
 export READECK_SERVER_HOST
 export READECK_SERVER_PORT
-export READECK_DATA_DIR # Export the data directory variable
+export READECK_DATA_DIRECTORY # Export the data directory variable
 
 # Start Readeck application.
 echo "Starting Readeck server on ${READECK_SERVER_HOST}:${READECK_SERVER_PORT}..."
-echo "Using data directory: ${READECK_DATA_DIR}"
-exec /bin/readeck serve
+echo "Using data directory: ${READECK_DATA_DIRECTORY}"
+exec exec /bin/readeck serve

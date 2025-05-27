@@ -26,15 +26,15 @@ RUN \
 RUN \
     echo "Building for architecture: ${BUILD_ARCH}" \
     && case "${BUILD_ARCH}" in \
-        "aarch64") REODECK_ARCH="arm64"; ;; \
-        "amd64") REODECK_ARCH="amd64"; ;; \
-        "i386") REODECK_ARCH="386"; ;; \
+        "aarch64") READECK_ARCH="arm64"; ;; \
+        "amd64") READECK_ARCH="amd64"; ;; \
+        "i386") READECK_ARCH="386"; ;; \
         *) echo "ERROR: Unsupported architecture ${BUILD_ARCH}"; exit 1 ;; \
     esac \
-    && echo "Downloading Readeck v${READECK_VERSION} for ${REODECK_ARCH}..." \
+    && echo "Downloading Readeck v${READECK_VERSION} for ${READECK_ARCH}..." \
     # Updated URL and filename format for 0.19.1
     && curl -L -f -o /bin/readeck \
-       "https://codeberg.org/readeck/readeck/releases/download/${READECK_VERSION}/readeck-${READECK_VERSION}-linux-${REODECK_ARCH}" \
+       "https://codeberg.org/readeck/readeck/releases/download/${READECK_VERSION}/readeck-${READECK_VERSION}-linux-${READECK_ARCH}" \
     && echo "Download complete. Verifying file type..." \
     # Check if the downloaded file starts with 'HTML' or 'Not Found', if so, it's an error.
     && if [ "$(head -c 5 /bin/readeck)" = "<!DOC" ] || [ "$(head -c 4 /bin/readeck)" = "<HTM" ] || [ "$(head -c 9 /bin/readeck)" = "Not Found" ]; then \
