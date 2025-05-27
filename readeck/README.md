@@ -16,14 +16,6 @@ The following options are available:
 - **allowed_hosts**:
   A list of hostnames or IP addresses that are allowed to access the server. Example:
 
-  ```yaml
-  allowed_hosts:
-    - readeck.domain.com
-    - domain.com
-    - 192.168.1.100
-    - homeassistant.local
-  ```
-
 - **use_x_forwarded_for** _(true/false)_:
   Enable or disable trusting the `X-Forwarded-For` header (for use behind a reverse proxy).
 
