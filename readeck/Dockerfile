@@ -52,8 +52,7 @@ RUN \
 COPY rootfs/ /
 
 # Ensure the run script is executable
-RUN \
-    chmod a+x /etc/services.d/readeck/run
+RUN chmod a+x /etc/services.d/readeck/run /etc/services.d/readeck/finish /etc/cont-init.d/10-config.sh
 
 # --- Labels ---
 # (Optional but recommended) Add labels for Home Assistant
