@@ -1,13 +1,13 @@
 # Readeck for Home Assistant
 
-This add-on is a Home Assistant version of [Readeck](https://codeberg.org/readeck/readeck). Readeck is a lightweight, self-hosted read-it-later app that lets you save, organize, and export web content—ideal for privacy-conscious users who want full control over their reading list.
+11:17 AM
 
-This implementation is based off the version that is in [jdeath's amazing repository](https://github.com/jdeath/homeassistant-addons/tree/main). I modified it to suit my own needs (to have more specific control of the environment variables).
+This add-on is a Home Assistant version of [Readeck](https://codeberg.org/readeck/readeck). Readeck is a lightweight, self-hosted read-it-later app that lets you save, organize, and export web content—ideal for privacy-conscious users who want full control over their reading list.
 
 ## 🔗 Usage
 
 Once installed, access the Web UI via:
-`http://<YOUR_HOME_ASSISTANT_IP>:8000/`
+`http://<YOUR_HOME_ASSISTANT_IP>:8001/`
 
 ## 🛠️ Configuration
 

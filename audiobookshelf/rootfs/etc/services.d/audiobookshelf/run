@@ -1,5 +1,4 @@
 #!/usr/bin/with-contenv bashio
-
 bashio::log.info "--- STARTING AUDIOBOOKSHELF ---"
 
 # fallback default port

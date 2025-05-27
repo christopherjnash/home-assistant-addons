@@ -1,38 +1,71 @@
-ARG BUILD_VERSION
-FROM codeberg.org/readeck/readeck:${BUILD_VERSION} AS build
+# ==============================================================================
+# Home Assistant Community Add-on: Readeck
+#
+# Builds the Readeck addon based on Home Assistant base images.
+# ==============================================================================
+ARG BUILD_FROM
+FROM ${BUILD_FROM}
 
-FROM ghcr.io/hassio-addons/base:stable
-COPY --from=build /bin/ /bin/
+# Set shell for enhanced command execution
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN apk add --no-cache jq
-
-COPY run.sh /
-RUN chmod a+x /run.sh
-CMD [ "/run.sh" ]
-
-### LABELS
+# --- Environment Variables ---
+# Set Readeck version to download
+ARG READECK_VERSION="0.19.1" # Updated version
+# Get build architecture from the build environment
 ARG BUILD_ARCH
-ARG BUILD_DATE
-ARG BUILD_DESCRIPTION
-ARG BUILD_NAME
-ARG BUILD_REF
-ARG BUILD_REPOSITORY
-ARG BUILD_VERSION
+
+# --- Package Installation ---
+# Install curl for downloading Readeck
+RUN \
+    apk add --no-cache curl
+
+# --- Readeck Installation ---
+# Determine the Readeck binary architecture based on BUILD_ARCH
+# Download the binary, place it in /bin, and make it executable
+RUN \
+    echo "Building for architecture: ${BUILD_ARCH}" \
+    && case "${BUILD_ARCH}" in \
+        "aarch64") REODECK_ARCH="arm64"; ;; \
+        "amd64") REODECK_ARCH="amd64"; ;; \
+        "i386") REODECK_ARCH="386"; ;; \
+        *) echo "ERROR: Unsupported architecture ${BUILD_ARCH}"; exit 1 ;; \
+    esac \
+    && echo "Downloading Readeck v${READECK_VERSION} for ${REODECK_ARCH}..." \
+    # Updated URL and filename format for 0.19.1
+    && curl -L -f -o /bin/readeck \
+       "https://codeberg.org/readeck/readeck/releases/download/${READECK_VERSION}/readeck-${READECK_VERSION}-linux-${REODECK_ARCH}" \
+    && echo "Download complete. Verifying file type..." \
+    # Check if the downloaded file starts with 'HTML' or 'Not Found', if so, it's an error.
+    && if [ "$(head -c 5 /bin/readeck)" = "<!DOC" ] || [ "$(head -c 4 /bin/readeck)" = "<HTM" ] || [ "$(head -c 9 /bin/readeck)" = "Not Found" ]; then \
+        echo "ERROR: Downloaded file appears to be an HTML/Error page, not a binary."; \
+        echo "--- File Content Start ---"; \
+        head -n 5 /bin/readeck; \
+        echo "--- File Content End ---"; \
+        exit 1; \
+    fi \
+    && echo "File seems okay. Setting execute permissions for /bin/readeck..." \
+    && chmod a+x /bin/readeck
+
+# --- Addon Setup ---
+# Copy the root filesystem, including the s6-overlay service script
+COPY rootfs/ /
+
+# Ensure the run script is executable
+RUN \
+    chmod a+x /etc/services.d/readeck/run
+
+# --- Labels ---
+# (Optional but recommended) Add labels for Home Assistant
+ARG BUILD_DESCRIPTION="Readeck is a lightweight read-it-later app..."
+ARG BUILD_NAME="Readeck"
+ARG BUILD_VERSION="0.19.1" # Updated version
 LABEL \
     io.hass.name="${BUILD_NAME}" \
     io.hass.description="${BUILD_DESCRIPTION}" \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
-    maintainer="christopherjnash (https://github.com/christopherjnash)" \
     org.opencontainers.image.title="${BUILD_NAME}" \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
-    org.opencontainers.image.vendor="Home Assistant Add-ons" \
-    org.opencontainers.image.authors="christopherjnash (https://github.com/christopherjnash)" \
-    org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.url="https://github.com/christopherjnash" \
-    org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
-    org.opencontainers.image.documentation="https://github.com/${BUILD_REPOSITORY}/blob/main/README.md" \
-    org.opencontainers.image.created=${BUILD_DATE} \
-    org.opencontainers.image.revision=${BUILD_REF} \
     org.opencontainers.image.version=${BUILD_VERSION}
