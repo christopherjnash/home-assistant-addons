@@ -18,11 +18,13 @@ USE_X_FORWARDED_FOR=$(bashio::config 'use_x_forwarded_for')
 USE_X_FORWARDED_HOST=$(bashio::config 'use_x_forwarded_host')
 USE_X_FORWARDED_PROTO=$(bashio::config 'use_x_forwarded_proto')
 
-# Format allowed_hosts for TOML array
-ALLOWED_HOSTS_TOML=$(echo "$ALLOWED_HOSTS" | jq -r '. | @csv' | sed 's/","/", "/g')
-if [ "$ALLOWED_HOSTS_TOML" = "" ]; then
-  ALLOWED_HOSTS_TOML=""
+# Defensive: Default to empty array if unset, null, or blank
+if [ -z "$ALLOWED_HOSTS" ] || [ "$ALLOWED_HOSTS" = "null" ]; then
+  ALLOWED_HOSTS="[]"
 fi
+
+# Format allowed_hosts for TOML array (empty array -> allowed_hosts = [])
+ALLOWED_HOSTS_TOML=$(echo "$ALLOWED_HOSTS" | jq -r 'if type=="array" and length>0 then . | @csv else "" end' | sed 's/","/", "/g')
 
 # Write config.toml
 cat > "$CONFIG_FILE" <<EOF
