@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv bash
+set -e
+echo "Starting Apache2..."
+exec apache2ctl -D FOREGROUND
