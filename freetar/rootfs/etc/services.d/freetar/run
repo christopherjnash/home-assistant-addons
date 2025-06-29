@@ -1,0 +1,10 @@
+#!/usr/bin/with-contenv bashio
+
+PORT=$(bashio::config 'port')
+USERNAME=$(bashio::config 'username')
+PASSWORD=$(bashio::config 'password')
+
+export PORT USERNAME PASSWORD
+
+bashio::log.info "Starting Freetar on port ${PORT}"
+exec /usr/local/bin/freetar_start.py

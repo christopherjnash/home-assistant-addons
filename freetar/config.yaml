@@ -1,0 +1,26 @@
+# https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
+name: Freetar
+version: "0.14.0"
+slug: freetar
+description: Freetar add-on for Home Assistant
+url: "https://github.com/kmille/freetar"
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+init: false
+options:
+  port: 22000
+  username: "user"
+  password: "pass"
+schema:
+  port: int
+  username: str
+  password: str
+ports:
+  22000/tcp: 22000
+ports_description:
+  22000/tcp: Freetar Web Interface
+webui: "http://[HOST]:[PORT:22000]"
