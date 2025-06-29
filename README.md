@@ -5,5 +5,3 @@
 ## In this repo:
 
 #### [Audiobookshelf](./audiobookshelf)
-#### [FiveFilters](./fivefilters_fulltextrss)
-#### [RSS-Bridge](./rss-bridge)
