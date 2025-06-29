@@ -1,0 +1,26 @@
+name: Freetar
+version: "0.14.0"
+slug: freetar
+description: Alternative front-end to Ultimate Guitar
+url: "https://github.com/kmille/freetar"
+image: "christopherjnash/freetar"
+
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+
+init: false
+
+ports:
+  22201/tcp: 22201
+ports_description:
+  22201/tcp: Freetar Web Interface
+
+environment:
+  PORT: "22201"
+  HOST: "0.0.0.0"
+
+webui: "http://[HOST]:[PORT:22201]"
