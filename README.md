@@ -5,3 +5,4 @@
 ## In this repo:
 
 #### [Audiobookshelf](./audiobookshelf)
+#### [Freetar](./freetar)
