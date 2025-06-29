@@ -12,15 +12,13 @@ arch:
   - i386
 init: false
 options:
-  port: 22000
   username: "user"
   password: "pass"
 schema:
-  port: int
   username: str
   password: str
 ports:
-  22000/tcp: 22000
+  22001/tcp: 22001
 ports_description:
-  22000/tcp: Freetar Web Interface
-webui: "http://[HOST]:[PORT:22000]"
+  22001/tcp: Freetar Web Interface
+webui: "http://[HOST]:[PORT:22001]"
